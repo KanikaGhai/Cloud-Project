@@ -1,10 +1,10 @@
-# Place It !! 
+# Easy Store !! 
 
 
  <h3> Introduction :</h3>
 
-<h3> Place It - Introduction </h3>
-Place It, is a web application hosted on AWS cloud which intends to provide access to the Authorized users for maintaining their files storage on cloud backed up by strong security, availability and durability. The Web Application has used different AWS Components in developing a 3 Tier Web Application. The application assures to provide a highly available, scalable, cost effective solution to store the user files. This application leverages AWS Code Pipeline to provide CI/CD. Also, it uses Elastic Beanstalk as the deployment environment which offers auto scaling groups and elastic load balancing to provide seamless experience during peak load times. The application uses RDS- MySQL Workbench Engine as a database system to store the details of Users and their files. The application also monitors the metrics of the RDS Instance using Cloud Watch and Cloud Watch Alarm has been set when RDS Instances reaches to the specified state and uses SNS to push the notifications regarding it to to the admin. Application uses lambda function and is triggered whenever the object is uploaded to the S3 Bucket.
+<h3> Easy Store - Introduction </h3>
+Easy Store, is a web application hosted on AWS cloud which intends to provide access to the Authorized users for maintaining their files storage on cloud backed up by strong security, availability and durability. The Web Application has used different AWS Components in developing a 3 Tier Web Application. The application assures to provide a highly available, scalable, cost effective solution to store the user files. This application leverages AWS Code Pipeline to provide CI/CD. Also, it uses Elastic Beanstalk as the deployment environment which offers auto scaling groups and elastic load balancing to provide seamless experience during peak load times. The application uses RDS- MySQL Workbench Engine as a database system to store the details of Users and their files. The application also monitors the metrics of the RDS Instance using Cloud Watch and Cloud Watch Alarm has been set when RDS Instances reaches to the specified state and uses SNS to push the notifications regarding it to to the admin. Application uses lambda function and is triggered whenever the object is uploaded to the S3 Bucket.
 
 <h4> Users can perform the following activities- </h4>
 
@@ -93,35 +93,28 @@ An optopn to upload files. Also, displays all the files uploaded by the all the 
 <h3> Sample Screenshots </h3>
 
 
-<b> Home Page</b>
-<p align="center">
-  <img src="Cloud_Project/src/main/resources/Static/INDEX.png"  >
-</p>
+
 
 <b> Signup Page </b>
 <p align="center">
-  <img src="Cloud_Project/src/main/resources/Static/SIGNUP.png"  >
+  <img src="screenshots/SIGNUP.png"  >
 </p>
 
 
 <b> Login Page </b>
 <p align="center">
-  <img src="Cloud_Project/src/main/resources/Static/login2.png"  >
+  <img src="screenshots/login2.png"  >
 </p>
 
-<b> Dashboard Page </b>
-<p align="center">
-  <img src="Cloud_Project/src/main/resources/Static/User Dashboard.png"  >
-</p>
 
 <b> Admin Login Page </b>
 <p align="center">
-  <img src="Cloud_Project/src/main/resources/Static/login.png"  >
+  <img src="screenshots/login.png"  >
 </p>
 
 <b> Admin Dashboard Page </b>
 <p align="center">
-  <img src="Cloud_Project/src/main/resources/Static/Admin Dashboard.png"  >
+  <img src="screenshots/Admin%20Dashboard.png"  >
 </p>
 
 
