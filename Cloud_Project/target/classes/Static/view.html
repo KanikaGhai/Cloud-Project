@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html>
+    
+    <head>
+        
+            <style>
+                body {
+                	
+                	background-color: #d24dff;
+                    height: 100%;
+                    margin: 0;
+                }
+                
+             
+   				.txt-rt {
+    		        text-align: right;
+      		 	 }
+        
+       
+       			 .txt-lt {
+       				 text-align: left;
+      			  }
+        
+        
+       			.txt-center {
+            		text-align: center;
+      			  }
+        
+        
+      		    .float-rt {
+      		      float: right;
+     			   }
+        
+       
+       			 .float-lt {
+      			      float: left;
+      			  }
+        
+        
+    			    .clear {
+       			     clear: both;
+    		    	}
+        
+        
+            
+            .bg {
+                height: 40%; end
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: cover;
+            }
+            
+            
+            
+            
+            .jumbotron{
+                background-color:#2E2D88;
+                color:white;
+            }
+            
+            
+            
+            
+            
+            p {text-align:center;}
+            
+            .buttonAlignment {
+                text-align: center;
+            }
+            
+            
+            
+            .button {
+                background-image: url("image/SJSU.jpg");
+                background-color: blue;
+                border: none;
+                color: white;
+                padding: 10px 20px;
+                text-align: center;
+                font-size: 10px;
+                cursor: pointer;
+            }
+            
+            .headingFont {
+                color: green;
+                text-align: center;
+                font-size: 85px;
+            }
+            
+            
+            }
+            .nav-tabs {
+                margin-bottom: 0;
+            }
+            
+            
+            
+            form {
+    			width: 80%;
+   				 margin: 0 auto;
+				}
+            
+            
+            
+            table {
+               
+ 			   border-collapse: collapse;
+ 			   width: 100%;
+				}
+
+				th {background-color: #C70039;
+    			color: white; 
+    			text-align: left;
+    			padding: 8px;
+    			}	 
+    			td {
+    			text-align: left;
+    			padding: 8px;
+    			
+				}
+
+				tr:nth-child(even) {background-color: #f2f2f2;}
+            
+            
+            .tab-content {
+                border-left: 1px solid #ddd;
+                border-right: 1px solid #ddd;
+                border-bottom: 1px solid #ddd;
+                padding: 10px;
+            }
+            
+           
+          
+            
+                 .pos-relative {
+          			  position: relative;
+       			 }
+        
+        
+       			 .pos-absolute {
+         			   position: absolute;
+       			 }
+     		 
+        
+      			  .vertical-base {
+       			     vertical-align: baseline;
+       			 }
+        
+        
+   				 .vertical-top {
+           			 vertical-align: top;
+     			   }
+          
+          
+           
+            
+            input[type=button] {
+                background-color: green;
+                color: white;
+                border: none;
+                padding: 10px 25px;
+                text-decoration: none;
+                margin: 4px 2px;
+                cursor: pointer;
+            }
+            
+            
+            
+            </style>
+            
+            
+            
+            
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+                <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+                <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"></script>
+                <script>
+                
+                    window.onload = function () {
+                        var loginID = $.cookie('useremail');
+                        
+                        
+                        $.ajax({
+                               type: 'GET',
+                               url: '/userfiles',
+                               data: { emailId: loginID  },
+                               success: function (data) {
+                               var responseText = JSON.stringify(data);
+                               var Obj = JSON.parse(responseText);
+                               var file_infodisplay = "";
+                               for (var i = 0; i < Obj.length; i++) {
+                               file_infodisplay += '<tr>';
+                               file_infodisplay += '<td>' + Obj[i].firstName + '</td>';
+                               file_infodisplay += '<td>' + Obj[i].lastName + '</td>';
+                               file_infodisplay += '<td>' + Obj[i].emailId + '</td>';
+                               file_infodisplay += '<td class ="filename">' + Obj[i].fileName + '</td>';
+                               file_infodisplay += '<td>' + Obj[i].fileDescription + '</td>';
+                               file_infodisplay += '<td>' + Obj[i].filecreatedTime + '</td>';
+                               file_infodisplay += '<td>' + Obj[i].fileUpdatedTime + '</td>';
+                               file_infodisplay += '<td><button class="btn-primary btn-sm-xs" id="' + Obj[i].fileName + '" type="button" onclick="downloadfile(event)">Download</button></td>';
+                               file_infodisplay += '<td><button class="btn btn-primary btn-xs" id="' + Obj[i].fileName + '" type="button" onclick="editfile(event)"> \
+                               <span class="glyphicon glyphicon-pencil"></span>    Edit</button></td>';
+                               file_infodisplay += '<td><button class="delete_button" id="' + Obj[i].fileName + '" type="button" onclick="deleteFile(event)">Delete</button></td>';
+                               file_infodisplay += '</tr>';
+                               }
+                               $('#filetable').append(file_infodisplay);
+                               },
+                               error: function (error) {
+                               var error = JSON.stringify(error);
+                               }
+                               });
+                        
+                        
+                        
+                        document.getElementById("Welcome_message").innerHTML = "Welcome,   " + $.cookie('firstName') + ' ' + $.cookie('lastName')  + "   to PLACE IT - One Solution For All Your Storage";
+                        
+                        
+                    };
+                
+                function downloadfile(event) {
+                    var downloadfile = event.target.id;
+                    window.location.href="https://d1f7n5bi2ul07j.cloudfront.net/" + $.cookie('useremail') +"/" + downloadfile;
+                };
+                
+                function editfile(event) {
+                    var editfile = event.target.id;
+                    window.location.href="https://d1f7n5bi2ul07j.cloudfront.net/" + $.cookie('useremail') +"/" + editfile;
+                };
+                
+                function deleteFile(event) {
+                    var deletefile = event.target.id;
+                    alert(deletefile);
+                    var fileDelete = { "emailId": $.cookie('useremail'),
+                    					"fileName": deletefile }
+                    
+                    alert(JSON.stringify(fileDelete));
+                    $.ajax({
+                        type: 'POST',
+                        contentType : 'application/json; charset=utf-8',
+                        dataType: 'json',
+                        url: '/deleteFileAndEntry',
+                        data: JSON.stringify(fileDelete),
+                        success :function(data) {
+                        var myjson = JSON.stringify(data);
+                        alert(myjson);
+                        },
+                        error: function(error){
+                        var errorjson = JSON.stringify(error);
+                        alert(errorjson);
+                        }
+                        });
+                
+               }
+                
+                
+                
+                $(function (){
+        			$('#logout').click(function () {
+                    $.cookie('useremail', null);
+                    $.cookie('firstName', null);
+                    $.cookie('lastName', null);
+                    window.location.href = "index.html";
+        	       });
+        	    });
+                
+                
+      
+                
+                $(function () {
+                  $('#upload').click(function () {
+                                     var file = document.getElementById('file').value;
+                                     if (file.lastIndexOf('\\') >= 0)
+                                     file = file.substr(file.lastIndexOf('\\') + 1);
+                                     var filedesc = document.getElementById('filedesc').value;
+                                     var formData = new FormData($('#form1')[0]);
+                                     formData.append("firstName", $.cookie('firstName'));
+                                     formData.append("lastName", $.cookie('lastName'));
+                                     formData.append("emailId", $.cookie('useremail'));
+                                     formData.append("fileName", file);
+                                     formData.append("fileDescription", filedesc);
+                                     
+                                     $.ajax({
+                                            type: 'POST',
+                                            contentType: false,
+                                            processData: false,
+                                            enctype: 'multipart/form-data',
+                                            url: '/upload',
+                                            data: formData,
+                                            success: function (data) {
+                                            var successjson = JSON.stringify(data);
+                                            },
+                                            error: function (error) {
+                                            var error = JSON.stringify(error);
+                                            }
+                                            });
+                                     });
+                  });
+                    </script>
+                    
+       <meta name="viewport" content="width=device-width, initial-scale=1">             
+    </head>
+    
+    <body style="background-color: #FFC300;">
+        <nav class="navbar" role="navigation" style="background-color: rgb(199, 0, 57);">
+            <div class="container-fluid">
+                <a class="navbar-brand" style="/* margin-left: -588px; */color: white;" id="Welcome_message"></a>
+                
+                
+            </div> </nav>
+        <a href="#" class = "btn btn-default btn-lg" role="button"  type="button" id="logout" style="float: right" >LogOut</a>
+        
+        
+        
+        
+        
+        <div>
+            
+        <div>
+        
+            <form id="form1" enctype="multipart/form-data" >
+            <br>
+            <br>
+            
+                <div><input type="file" id="file" name="file"  ></div>
+                <br>
+                <div>Description&nbsp;&nbsp;
+                    <input type="text" name="Description" id="filedesc" >
+                    <br><br>
+                        <input id="upload" type="submit" value="Upload File" class = "btn-primary btn-sm" role="button" >
+                            </div>
+            </form>
+        </div>
+        <br>
+        <div class="container bottom">
+            <div class="table-responsive"><br><br>
+                <table class="table table-stripped" id="filetable">
+                    <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Email ID</th>
+                        <th>File Name</th>
+                        <th>File Description</th>
+                        <th>File Created Time</th>
+                        <th>File Updated time</th>
+                        <th>File Download</th>
+                        <th>File Edit</th>
+                        <th>File Delete</th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </body>
+    
+</html>
